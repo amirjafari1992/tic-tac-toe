@@ -15,6 +15,7 @@ const LoginInput: React.FC<LoginInputProps> = ({value, setValue, name}) => {
                 onChange={(e) => setValue(e.target.value)}
                 value={value}
                 placeholder={`Enter the ${name} name`}
+                role="input"
             />
         </>
     );
