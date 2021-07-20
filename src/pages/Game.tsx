@@ -6,47 +6,47 @@ import { useGameState } from '../components/Game/GameState';
 import { usePlayer } from '../contexts/PlayerContext';
 
 const GamePage: React.FC = () => {
-    const {
-        current,
-        xIsNext,
-        jumpTo,
-        winner,
-        handleClick,
-    } = useGameState();
+  const {
+    current,
+    xIsNext,
+    jumpTo,
+    winner,
+    handleClick,
+  } = useGameState();
 
-    const { state, dispatch } = usePlayer();
-    const { playerOne, playerTwo } = state.users;
-    const [isSaved, setIsSaved] = useState(false);
+  const { state, dispatch } = usePlayer();
+  const { playerOne, playerTwo } = state.users;
+  const [isSaved, setIsSaved] = useState(false);
 
-    const handleRestart = () => {
-        const player = winner === 'X' ? playerOne : playerTwo;
+  const handleRestart = () => {
+    const player = winner === 'X' ? playerOne : playerTwo;
 
-        setIsSaved(false)
-        jumpTo(0)
-        if (winner) {
-            dispatch({
-                type: 'ADD_WINNER',
-                payload: {
-                    name: player,
-                    object: winner,
-                    date: new Date()
-                }
-            });
-        }
+    setIsSaved(false);
+    jumpTo(0);
+    if (winner) {
+      dispatch({
+        type: 'ADD_WINNER',
+        payload: {
+          name: player,
+          object: winner,
+          date: new Date(),
+        },
+      });
     }
+  };
 
-    return (
-        (
+  return (
+    (
             <>
                 <Game>
-                    <Game.Status 
-                        winner={winner} 
-                        players={{ playerOne, playerTwo }} 
+                    <Game.Status
+                        winner={winner}
+                        players={{ playerOne, playerTwo }}
                     />
-                    <Game.Main 
-                        isSaved={isSaved} 
-                        setIsSaved={setIsSaved} 
-                        players={{ playerOne, playerTwo }} 
+                    <Game.Main
+                        isSaved={isSaved}
+                        setIsSaved={setIsSaved}
+                        players={{ playerOne, playerTwo }}
                         current={current}
                         xIsNext={xIsNext}
                         handleClick={handleClick}
@@ -56,8 +56,8 @@ const GamePage: React.FC = () => {
                     <Game.Buttons handleRestart={handleRestart} />
                 </Game>
             </>
-        )
     )
-}
+  );
+};
 
 export default GamePage;

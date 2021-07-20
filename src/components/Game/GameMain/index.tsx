@@ -1,37 +1,37 @@
 import * as React from 'react';
-import { Board } from '../GameBoard';
 
 import { Column, Row } from '../../Layout';
-import { Player } from '../../UI/Player';
-
+import Player from '../../UI/Player';
+import Board from '../GameBoard';
+import { BoardState } from '../GameState';
 
 export interface GameMainProps {
     isSaved: boolean;
     setIsSaved: (item: boolean) => void;
     players: PlayerItem;
-    current: any;
-    xIsNext: any;
-    handleClick: any;
-    jumpTo: any;
-    winner: any;
+    current: BoardState;
+    xIsNext: boolean;
+    handleClick: (x: number) => void;
+    jumpTo: (item: number) => void;
+    winner: string | null;
 }
 
 const GameMain: React.FC<GameMainProps> = ({
-    isSaved, 
-    setIsSaved, 
-    players, 
-    current, 
-    xIsNext, 
-    handleClick, 
-    jumpTo, 
-    winner
+  isSaved,
+  setIsSaved,
+  players,
+  current,
+  xIsNext,
+  handleClick,
+  jumpTo,
+  winner,
 }) => {
-    const {playerOne, playerTwo} = players;
-    
-    return (
+  const { playerOne, playerTwo } = players;
+
+  return (
         <Row gap={20}>
             <Column gap={20}>
-                <Player active={xIsNext ? true : false}>
+                <Player active={!!xIsNext}>
                     {playerOne}
                 </Player>
             </Column>
@@ -46,12 +46,12 @@ const GameMain: React.FC<GameMainProps> = ({
                 />
             </Column>
             <Column gap={20}>
-                <Player active={!xIsNext ? true : false}>
+                <Player active={!xIsNext}>
                     {playerTwo}
                 </Player>
             </Column>
         </Row>
-    );
-}
+  );
+};
 
 export default GameMain;

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { usePlayer } from "../../../contexts/PlayerContext";
+import { useState } from 'react';
+
+import { usePlayer } from '../../../contexts/PlayerContext';
 
 export type Value = 'X' | 'O' | null;
 
@@ -15,8 +16,9 @@ function calculateWinner(boardState: BoardState) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
+  /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
   for (let i = 0; i < winningCombinations.length; i++) {
     const [a, b, c] = winningCombinations[i];
     if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
@@ -31,7 +33,16 @@ export type GameState = {
   step: number,
 }
 
-export function useGameState() {
+type UseGameState = {
+  gameState: GameState,
+    current: BoardState,
+    xIsNext: boolean,
+    winner: string | null,
+    handleClick: (s: number) => void,
+    jumpTo: (x: number) => void,
+}
+
+export function useGameState(): UseGameState {
   const [gameState, setGameState] = useState<GameState>({
     history: [createBoardState()],
     step: 0,
@@ -42,8 +53,6 @@ export function useGameState() {
   const { state } = usePlayer();
   const xIsNext = state.lastWinner.object === 'X' ? (gameState.step % 2) === 0 : (gameState.step % 2) !== 0;
 
-
-
   function handleClick(square: number) {
     const history = gameState.history.slice(0, gameState.step + 1);
     const boardState = history[history.length - 1];
@@ -51,11 +60,11 @@ export function useGameState() {
       return;
     }
     const newBoardState = boardState.slice();
-    if(state.scoreBoard.length > 0) {
+    if (state.scoreBoard.length > 0) {
       const winnersCount = state.scoreBoard.length;
-      const lastWinner = state.scoreBoard[winnersCount - 1]
-      
-      if(lastWinner.object === 'X') {
+      const lastWinner = state.scoreBoard[winnersCount - 1];
+
+      if (lastWinner.object === 'X') {
         newBoardState[square] = (gameState.step % 2) === 0 ? 'X' : 'O';
       } else {
         newBoardState[square] = (gameState.step % 2) === 0 ? 'O' : 'X';
@@ -63,10 +72,10 @@ export function useGameState() {
     } else {
       newBoardState[square] = (gameState.step % 2) === 0 ? 'X' : 'O';
     }
-    
+
     history.push(newBoardState);
     setGameState({
-      history: history,
+      history,
       step: history.length - 1,
     });
   }
@@ -76,13 +85,13 @@ export function useGameState() {
       step,
     });
   }
-  
+
   return {
     gameState,
     current,
     xIsNext,
     winner,
     handleClick,
-    jumpTo
+    jumpTo,
   };
 }

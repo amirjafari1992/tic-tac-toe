@@ -4,14 +4,14 @@ type BoxProps = {
     center?: boolean;
 }
 
-export const Box = styled.div<BoxProps>`
+const Box = styled.div<BoxProps>`
     box-shadow: 0px 4px 44px rgba(0, 0, 0, 0.05);
     border-radius: 30px;
     background-color: #fff;
     overflow: hidden;
     padding: 15px;
     margin-bottom: 15px;
-    ${({center}) => center && `
+    ${({ center }) => center && `
         position: absolute;
         top: 50%;
         left: 50%;
@@ -22,3 +22,4 @@ export const Box = styled.div<BoxProps>`
     }
 `;
 
+export default Box;

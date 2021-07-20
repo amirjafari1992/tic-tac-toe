@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Input } from '../../UI/Input';
 
 export interface LoginInputProps {
@@ -7,9 +8,7 @@ export interface LoginInputProps {
     name: string;
 }
 
-const LoginInput: React.FC<LoginInputProps> = ({value, setValue, name}) => {
-
-    return (
+const LoginInput: React.FC<LoginInputProps> = ({ value, setValue, name }) => (
         <>
             <Input
                 onChange={(e) => setValue(e.target.value)}
@@ -18,7 +17,6 @@ const LoginInput: React.FC<LoginInputProps> = ({value, setValue, name}) => {
                 role="input"
             />
         </>
-    );
-}
+);
 
 export default LoginInput;

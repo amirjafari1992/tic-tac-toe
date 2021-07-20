@@ -4,14 +4,14 @@ type PlayerProps = {
     active: boolean;
 }
 
-export const Player = styled.div<PlayerProps>`
-    font-size: 32px;
+const Player = styled.div<PlayerProps>`
+font-size: 32px;
     color: rgba(0,0,0,.6);
     padding: 10px 25px 32px;
     border-radius: 16px;
     position: relative;
 
-    ${({active}) => active && `
+    ${({ active }) => active && `
         background: #C1EE3F;
         color: #fff;
         &:after {
@@ -27,4 +27,4 @@ export const Player = styled.div<PlayerProps>`
     `}
 `;
 
-
+export default Player;

@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LoginPage from '../pages/Login';
-import GamePage from '../pages/Game';
+
 import { usePlayer } from '../contexts/PlayerContext';
-import { PrivateRoute } from './PrivateRoute';
+import GamePage from '../pages/Game';
+import LoginPage from '../pages/Login';
 import ScoreBoardPage from '../pages/ScoreBoard';
 
+import PrivateRoute from './PrivateRoute';
 
-function Main() {
-  const { state } = usePlayer()
+const Main: React.FC = () => {
+  const { state } = usePlayer();
 
   return (
     <Router>
@@ -24,6 +25,6 @@ function Main() {
       />
     </Router>
   );
-}
+};
 
 export default Main;

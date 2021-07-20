@@ -1,7 +1,7 @@
+import { Column, Row } from '../../Layout';
+import Box from '../../UI/Box';
+import Square, { SquareProps } from '../GameSquare';
 import { BoardState } from '../GameState';
-import { SquareProps, Square } from '../GameSquare';
-import { Column, Row } from "../../Layout";
-import { Box } from '../../UI/Box';
 
 type BoardProps = {
   board: BoardState;
@@ -9,23 +9,27 @@ type BoardProps = {
   winner: string | null;
   jumpTo: (item: number) => void
   isSaved: boolean;
-  setIsSaved: (x:boolean) => void;
+  setIsSaved: (x: boolean) => void;
 };
-export function Board({ board, onClick, winner, jumpTo, isSaved, setIsSaved }: BoardProps) {
-  const createProps = (square: number): SquareProps => {
-    return {
-      value: board[square],
-      onClick: () => onClick(square),
-    };
-  };
 
-  const boardItemLength = board.filter(item => item !== null).length;
+const Board: React.FC<BoardProps> = ({
+  board,
+  onClick,
+  winner,
+  jumpTo,
+  isSaved,
+  setIsSaved,
+}) => {
+  const createProps = (square: number): SquareProps => ({
+    value: board[square],
+    onClick: () => onClick(square),
+  });
+
+  const boardItemLength = board.filter((item) => item !== null).length;
   const isBoardFull = boardItemLength === 9;
   const isGameDraw = isBoardFull && !winner;
 
-  if (isGameDraw) jumpTo(0)
-
-  
+  if (isGameDraw) jumpTo(0);
 
   return (
     <Box>
@@ -48,4 +52,6 @@ export function Board({ board, onClick, winner, jumpTo, isSaved, setIsSaved }: B
       </Column>
     </Box>
   );
-}
+};
+
+export default Board;
